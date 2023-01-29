@@ -1,0 +1,20 @@
+<%- include("partials/header") %>
+        <h3>Home</h3>
+        <div class="smothie-center">
+
+            <% smothies.forEach(smothie=> { %>
+                <div class="smothie-card card card-body">
+                    <h5 class="card-title">"<%= smothie.name %>" <span class="card-title-info"> by <%= smothie.author %>
+                            </span></h5>
+                    <p class="card-text">Items:</p>
+                    <ol class="card-text">
+                        <% smothie.items.forEach(item=> { %>
+                            <li>
+                                <%= item %>
+                            </li>
+                            <% }) %>
+                    </ol>
+                </div>
+                <% }) %>
+        </div>
+<%- include("partials/footer") %>
