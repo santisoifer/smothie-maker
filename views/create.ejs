@@ -1,10 +1,17 @@
 <%- include("partials/header") %>
-
-<form action="/" method="post">
-    <input type="text" placeholder="The smothie name">
-    <input type="text" placeholder="Your name">
-    <input type="text" placeholder="items">
-    <!-- TODO: de alguna forma, que se puedan seleccionar mas de una opcion. despues, mandar datos al sever -->
-</form>
-
+    <form action="/create" method="post">
+        <div class="create-input-parent">
+            <label for="smothie-name">Smothie name:</label>
+            <input type="text" id="smothie-name" class="create-input" placeholder="Manzana, durazno y canela">
+            
+            <label for=author-name"">Your name:</label>
+            <input type="text" id="author-name" class="create-input" placeholder="Santi Soifer">
+            
+            <label for="smothie-ingredients">All the ingredients, <b>separated by a coma ( , )</b></label>
+            <input type="text" id="smothie-ingredients" class="create-input" placeholder="Manzana, Durazno,canela"> 
+            
+            <button type="submit" class="add-ingredient btn btn-outline-success">Create +</button>
+        </div>
+        
+    </form>
 <%- include("partials/footer") %>
