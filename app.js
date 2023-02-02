@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
+const _ = require("lodash");
 
 const app = express();
 app.use(express.static("public"));
@@ -53,21 +54,30 @@ app.get("/create", (req, res) => {
 });
 
 app.post("/create", (req, res) => {
-    const newSmothie = new Smothie({
-        name: req.body.smothieName,
-        author: req.body.authorName,
-        items: req.body.smothieIngredients.split(",")
-    });
+    
+    const {smothieName, authorName, smothieIngredients } = req.body;
 
-    newSmothie.save((err) => {
-        if (!err) {
-            console.log("New smothie saved!");
-        } else {
-            console.log(err);
-        }
-    });
+    if (smothieName !== "" && authorName !== "" && smothieIngredients !== "") {
+        
+        const newSmothie = new Smothie({
+            name: _.upperFirst(smothieName),
+            author: _.upperFirst(authorName),
+            items: smothieIngredients.split(",")
+        });
+    
+        newSmothie.save((err) => {
+            if (!err) {
+                console.log("New smothie saved!");
+            } else {
+                console.log(err);
+            }
+        });
+    
+        res.redirect("/");
 
-    res.redirect("/");
+    } else {
+        res.redirect("/create")
+    }
 });
 
 app.listen(3000, () => {

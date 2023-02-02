@@ -2,14 +2,13 @@
     <form action="/create" method="post">
         <div class="create-input-parent">
             <label for="smothie-name">Smothie name:</label>
-            <input autocomplete="off" name="smothieName" type="text" id="smothie-name" class="create-input" placeholder="Manzana, durazno y canela">
+            <input autocomplete="off" name="smothieName" type="text" id="smothie-name" class="create-input" placeholder="Manzana, durazno y canela" required>
             
             <label for="author-name">Your name:</label>
-            <input autocapitalize="true" name="authorName" type="text" id="author-name" class="create-input" placeholder="Santi Soifer">
+            <input autocapitalize="true" name="authorName" type="text" id="author-name" class="create-input" placeholder="Santi Soifer" required>
             
             <label for="smothie-ingredients">All the ingredients, <b>separated by a coma ( , )</b></label>
-            <input autocomplete="off" name="smothieIngredients" type="text" id="smothie-ingredients" class="create-input" placeholder="Manzana, Durazno,canela">
-            <!-- split -->
+            <input autocomplete="off" name="smothieIngredients" type="text" id="smothie-ingredients" class="create-input" placeholder="Manzana, Durazno,canela" required>
             
             <button type="submit" class="add-ingredient btn btn-outline-success">Create +</button>
         </div>
