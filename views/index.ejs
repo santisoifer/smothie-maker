@@ -1,20 +1,23 @@
 <%- include("partials/header") %>
-        <h3>Home</h3>
+        <h3><%= title %></h3>
         <div class="smothie-center">
-
-            <% smothies.forEach(smothie=> { %>
-                <div class="smothie-card card card-body">
-                    <h5 class="card-title">"<%= smothie.name %>" <span class="card-title-info"> by <%= smothie.author %>
-                            </span></h5>
-                    <p class="card-text">Items:</p>
-                    <ol class="card-text">
-                        <% smothie.items.forEach(item => { %>
-                            <li>
-                                <%= item %>
-                            </li>
-                            <% }) %>
-                    </ol>
-                </div>
-                <% }) %>
+            <% if (smothies.length !== 0) { %>
+                <% smothies.forEach(smothie=> { %>
+                    <div class="smothie-card card card-body">
+                        <h5 class="card-title">"<%= smothie.name %>" <span class="card-title-info"> by <%= smothie.author %>
+                                </span></h5>
+                        <p class="card-text">Items:</p>
+                        <ol class="card-text">
+                            <% smothie.items.forEach(item => { %>
+                                <li>
+                                    <%= item %>
+                                </li>
+                                <% }) %>
+                        </ol>
+                    </div>
+                    <% }) %>
+            <% } else { %>
+                <p><b>No smothies found with that tag</b>. Try searching with another tag, like the name of someone, or just the name of the smoothie. You can also <a href="/">go back home</a>, to see all the smothies</p>
+            <% } %>
         </div>
 <%- include("partials/footer") %>

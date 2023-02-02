@@ -27,7 +27,6 @@ const defaultSmothie = new Smothie({
     items: ["Banana", "Durazno", "leche"]
 });
 
-// defaultSmothie.save();
 app.get("/", (req, res) => {
     // Save the default smothie:
     Smothie.findOne({ name: "Banana y durazno", }, (err, foundedSmothie) => {
@@ -41,7 +40,7 @@ app.get("/", (req, res) => {
     // Render home screen, and pass all the existing smothies.
     Smothie.find({}, (err, results) => {
         if (!err) {
-            res.render("index", { smothies: results });
+            res.render("index", { smothies: results , title: "Home"});
         } else {
             console.log(err);
         }
@@ -54,17 +53,17 @@ app.get("/create", (req, res) => {
 });
 
 app.post("/create", (req, res) => {
-    
-    const {smothieName, authorName, smothieIngredients } = req.body;
+
+    const { smothieName, authorName, smothieIngredients } = req.body;
 
     if (smothieName !== "" && authorName !== "" && smothieIngredients !== "") {
-        
+
         const newSmothie = new Smothie({
             name: _.upperFirst(smothieName),
             author: _.upperFirst(authorName),
             items: smothieIngredients.split(",")
         });
-    
+
         newSmothie.save((err) => {
             if (!err) {
                 console.log("New smothie saved!");
@@ -72,12 +71,29 @@ app.post("/create", (req, res) => {
                 console.log(err);
             }
         });
-    
+
         res.redirect("/");
 
     } else {
         res.redirect("/create")
     }
+});
+
+app.post("/search", (req, res) => {
+    const { searchInfo } = req.body;
+
+    Smothie.find({
+        $or: [
+            { name: _.upperFirst(searchInfo) },
+            { author: _.upperFirst(searchInfo) }
+        ]
+    }, (err, results) => {
+        if (!err) {
+            res.render("index", { smothies: results , title: 'Results for "' + searchInfo + '"'});
+        } else {
+            console.log(err);
+        }
+    })
 });
 
 app.listen(3000, () => {
