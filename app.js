@@ -26,16 +26,16 @@ const defaultSmothie = new Smothie({
     items: ["Banana", "Durazno", "leche"]
 });
 
-defaultSmothie.save();
+// defaultSmothie.save();
 app.get("/", (req, res) => {
     // Save the default smothie:
-    // Smothie.findOne({ name: "Banana y durazno", }, (err, foundedSmothie) => {
-    //     if (!err && foundedSmothie === null) {
-    //         defaultSmothie.save();
-    //     } else {
-    //         console.log(err);
-    //     }
-    // });
+    Smothie.findOne({ name: "Banana y durazno", }, (err, foundedSmothie) => {
+        if (!err && foundedSmothie === null) {
+            defaultSmothie.save();
+        } else {
+            console.log(err);
+        }
+    });
 
     // Render home screen, and pass all the existing smothies.
     Smothie.find({}, (err, results) => {
@@ -50,6 +50,24 @@ app.get("/", (req, res) => {
 
 app.get("/create", (req, res) => {
     res.render("create");
+});
+
+app.post("/create", (req, res) => {
+    const newSmothie = new Smothie({
+        name: req.body.smothieName,
+        author: req.body.authorName,
+        items: req.body.smothieIngredients.split(",")
+    });
+
+    newSmothie.save((err) => {
+        if (!err) {
+            console.log("New smothie saved!");
+        } else {
+            console.log(err);
+        }
+    });
+
+    res.redirect("/");
 });
 
 app.listen(3000, () => {

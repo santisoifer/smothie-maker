@@ -31,7 +31,11 @@
 
 .smothie-card {
     max-width: 400px;
+    max-height: 182px;
     margin: 20px 20px 20px 0;
+    background: rgb(255,255,255);
+    background: linear-gradient(180deg, rgba(255,255,255,0) 70%, rgba(0,0,0,0.4956681720696845) 100%);
+    
 }
 
 .card-title{
